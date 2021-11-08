@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://${ds.server}/${ds.dbname}?characterEncoding=UTF-8&useSSL=false&useUnicode=true&serverTimezone=UTC
+    username: ${ds.username}
+    password: ${ds.password}
+  security:
+    user:
+      name: admin
+      password: 1212
+  profiles:
+    include: env
+flowable:
+  common:
+    app:
+      idm-url: http://127.0.0.1:18081/flowable-idm
+      idm-admin:
+        user: admin
+        password: test
+mybatis-plus:
+  mapper-locations: classpath*:cn/lttc/**/mapping/*.xml, classpath:/META-INF/modeler-mybatis-mappings/*.xml
+  global-config:
+    banner: false
+  configuration-properties:
+    prefix:
+    blobType: BLOB
+    boolValue: true
+

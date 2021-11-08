@@ -1,0 +1,42 @@
+plugins {
+    id 'org.springframework.boot' version '2.5.6'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'cn.lttc'
+version = '1.0.0'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation group: 'org.flowable', name: 'flowable-spring-boot-starter', version: '6.5.0'
+    implementation group: 'org.flowable', name: 'flowable-ui-modeler-rest', version: '6.5.0'
+    implementation group: 'com.baomidou', name: 'mybatis-plus-boot-starter', version: '3.4.+'
+    implementation group: 'org.liquibase', name: 'liquibase-core', version: '4.5.0'
+    implementation group: 'com.alibaba', name: 'druid', version: '1.2.+'
+    compileOnly 'org.projectlombok:lombok:1.18.22'
+    runtimeOnly 'mysql:mysql-connector-java:8.0.+'
+    annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+//SpringBoot 和 Flowable 日志依赖冲突，排队指定依赖
+configurations {
+    all*.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+}
+
+test {
+    useJUnitPlatform()
+}
